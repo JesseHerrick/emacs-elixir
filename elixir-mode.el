@@ -105,6 +105,10 @@
   '((t (:inherit default)))
   "For use with numbers.")
 
+(defvar elixir-function-call-face 'elixir-function-call-face)
+(defface elixir-function-call-face
+  '((t (:inherit font-lock-function-name-face)))
+  "For use with function calls.")
 
 (eval-when-compile
   (defconst elixir-rx-constituents
@@ -433,7 +437,7 @@ is used to limit the scan."
     (,(elixir-rx word-boundary
                  (group identifiers)
                  (repeat 1 "("))
-     1 font-lock-constant-face)
+     1 elixir-function-call-face)
 
     ;; Map keys
     (,(elixir-rx (group (and identifiers ":")) (or space "\n"))
