@@ -150,10 +150,12 @@
                          "?"
                          anything
                          symbol-end))
+
       (function-declaration . ,(rx (or line-start (not (any ".")))
                                    symbol-start
                                    (or "def" "defp")
                                    symbol-end))
+
       ;; The first character of an identifier must be a letter or an underscore.
       ;; After that, they may contain any alphanumeric character + underscore.
       ;; Additionally, the final character may be either `?' or `!'.
@@ -426,6 +428,15 @@ is used to limit the scan."
                  (or (or sigils identifiers space)
                      (one-or-more "\n")))
      1 font-lock-variable-name-face)
+
+    ;; Highlight function calls
+    (,(elixir-rx word-boundary
+                 (group
+                  (any "a-z" "_")
+                  (zero-or-more (any "A-Z" "a-z" "0-9" "_"))
+                  (optional (any "!" "?")))
+                 (repeat 1 "("))
+     1 font-lock-constant-face)
 
     ;; Map keys
     (,(elixir-rx (group (and identifiers ":")) (or space "\n"))
