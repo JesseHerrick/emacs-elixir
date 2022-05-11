@@ -429,12 +429,9 @@ is used to limit the scan."
                      (one-or-more "\n")))
      1 font-lock-variable-name-face)
 
-    ;; Highlight function calls
+    ;; Function calls
     (,(elixir-rx word-boundary
-                 (group
-                  (any "a-z" "_")
-                  (zero-or-more (any "A-Z" "a-z" "0-9" "_"))
-                  (optional (any "!" "?")))
+                 (group identifiers)
                  (repeat 1 "("))
      1 font-lock-constant-face)
 
